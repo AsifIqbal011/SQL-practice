@@ -1,6 +1,6 @@
 CREATE DATABASE University;
 
-CREATE TABLE student
+CREATE TABLE student_details
 (
  Roll int(5),
  Name varchar(15),
