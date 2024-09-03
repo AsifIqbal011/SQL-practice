@@ -1,6 +1,6 @@
-CREATE DATABASE University;
+CREATE DATABASE University;		//Create database
 
-CREATE TABLE student_details
+CREATE TABLE student_details		//Create table
 (
  Roll int(5),
  Name varchar(15),
@@ -8,15 +8,15 @@ CREATE TABLE student_details
  Age int(5),
  GPA double(3,2),
  City varchar(15),
- PRIMARY KEY(Roll)
+ PRIMARY KEY(Roll)			//Primary key mane jeta mandatory 
 );
 
-INSERT INTO student_details
+INSERT INTO student_details		//Insert value one by one
 VALUES(197,"Asif","male",22,4.0,"Satkhira");
 INSERT INTO student_details
 VALUES(199,"JAM","Female",24,3.96,"GRam");
 
-INSERT INTO student_details
+INSERT INTO student_details		//Insert multiple value 
 VALUES
 (206,"Tahsin","male",23,3.86,"Satkhira"),
 (209,"Joy","male",24,3.56,"Lokkhipur"),
@@ -30,7 +30,8 @@ SELECT DISTINCT City FROM student_details;(show only unique value)
 SELECT * FROM student_details LIMIT 2,3;  (show value after 1st 2 value and total show 3 values)
 
 SELECT name,Roll FROM student_details
-ORDER BY Roll DESC;
+ORDER BY Roll DESC;			//DESC means Decreasing
+					//DESC na dile Increasing order kaj korbe
 
 SELECT name,Roll FROM student_details  
 WHERE roll>200;  (where keyword for use conddition)
@@ -42,7 +43,7 @@ SELECT * FROM student_details
 WHERE Roll IN (199,206,209);  (use IN Instead of multiple OR)
 
 //search by LIKE keyword
-SELECT * FROM student_details WHERE Name LIKE "%a%"; //contains
+SELECT * FROM student_details WHERE Name LIKE "%a%"; //contains	(not case sensitive)
 SELECT * FROM student_details WHERE Name LIKE "a%";  //start with
 SELECT * FROM student_details WHERE Name LIKE "%a";  //ends with
 SELECT * FROM student_details WHERE Name LIKE "_a%"; //2nd letter a
@@ -55,7 +56,7 @@ PRIMARY KEY -> NOT NULL + UNIQUE
 CREATE TABLE faculty(
 ID int NOT Null AUTO_INCREMENT,
     Name varchar(15) NOT NULL,
-    Salary double(9,2),
+    Salary double(9,2),		//2 means decimal er por 2 ta digit show korbe
     PRIMARY KEY(ID)
 );
 
@@ -70,9 +71,9 @@ ID	Name	Salary
 1002	Shihab	NULL
 1003	Arnob	NULL
 
-SELECT salary AS money FROM faculty;
+SELECT salary AS money FROM faculty;	//salary rename hobe na but show as money
 
-UPDATE faculty
+UPDATE faculty				//update value
 SET Salary=50000
 WHERE Name="arnob";
 //output
@@ -102,15 +103,15 @@ DROP phone;
 ALTER TABLE student_details
 CHANGE Roll ID int(10);
 
-SELECT City,MAX(GPA)
+SELECT City,MAX(GPA)		//sob city theke max GPA wala ke show korbe
 FROM student_details
 GROUP BY City
 ORDER BY GPA DESC;
 
-TRUNCATE TABLE student_details; (remove only values from table)
+TRUNCATE TABLE student_details; (remove only values(data) from table)
 
 //join 2 table
-SELECT student_details.Roll,reg_number,Name,Subject,Gpa
+SELECT student_details.Roll,reg_number,Name,Subject,Gpa  // show data from 2 table
 FROM student_details,exam 
 WHERE student_details.Roll=exam.Roll;
 
@@ -118,7 +119,7 @@ SELECT student_details.Roll,reg_number,Name,Subject,Gpa
 FROM student_details JOIN exam 
 ON student_details.Roll=exam.Roll;
 
-CREATE VIEW stu_View AS
+CREATE VIEW stu_View AS		//main table theke data niye custom table show korbe
 SELECT Name,Age,ID,City
 FROM student_details;
 
