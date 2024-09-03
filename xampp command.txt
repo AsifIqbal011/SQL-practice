@@ -1,0 +1,125 @@
+CREATE DATABASE University;
+
+CREATE TABLE student
+(
+ Roll int(5),
+ Name varchar(15),
+ Gender varchar(10),
+ Age int(5),
+ GPA double(3,2),
+ City varchar(15),
+ PRIMARY KEY(Roll)
+);
+
+INSERT INTO student_details
+VALUES(197,"Asif","male",22,4.0,"Satkhira");
+INSERT INTO student_details
+VALUES(199,"JAM","Female",24,3.96,"GRam");
+
+INSERT INTO student_details
+VALUES
+(206,"Tahsin","male",23,3.86,"Satkhira"),
+(209,"Joy","male",24,3.56,"Lokkhipur"),
+(210,"Naina","female",22,3.96,"NokiaKhali"),
+ (214,"Urmi","female",23,3.71,"NokiaKhali");
+
+SELECT Name,Age,Roll from student_details;
+
+SELECT DISTINCT City FROM student_details;(show only unique value)
+
+SELECT * FROM student_details LIMIT 2,3;  (show value after 1st 2 value and total show 3 values)
+
+SELECT name,Roll FROM student_details
+ORDER BY Roll DESC;
+
+SELECT name,Roll FROM student_details  
+WHERE roll>200;  (where keyword for use conddition)
+
+SELECT name,Roll FROM student_details
+WHERE roll BETWEEN 200 AND 210;
+
+SELECT * FROM student_details
+WHERE Roll IN (199,206,209);  (use IN Instead of multiple OR)
+
+//search by LIKE keyword
+SELECT * FROM student_details WHERE Name LIKE "%a%"; //contains
+SELECT * FROM student_details WHERE Name LIKE "a%";  //start with
+SELECT * FROM student_details WHERE Name LIKE "%a";  //ends with
+SELECT * FROM student_details WHERE Name LIKE "_a%"; //2nd letter a
+SELECT * FROM student_details WHERE Name LIKE "__a%";//3rd letter a
+SELECT * FROM student_details WHERE Name LIKE "%a_"; //2nd last letter a
+
+Not NULL ->mane oi field ta faka rakha jabe na.
+PRIMARY KEY -> NOT NULL + UNIQUE
+
+CREATE TABLE faculty(
+ID int NOT Null AUTO_INCREMENT,
+    Name varchar(15) NOT NULL,
+    Salary double(9,2),
+    PRIMARY KEY(ID)
+);
+
+INSERT INTO faculty
+VALUES (1001,"Sakib",65000);
+
+INSERT INTO faculty (Name)
+VALUES ("Shihab"),("Arnob");
+//output
+ID	Name	Salary	
+1001	Sakib	65000.00
+1002	Shihab	NULL
+1003	Arnob	NULL
+
+SELECT salary AS money FROM faculty;
+
+UPDATE faculty
+SET Salary=50000
+WHERE Name="arnob";
+//output
+ID	Name	Salary	
+1001	Sakib	65000.00
+1002	Shihab	NULL
+1003	Arnob	50000.00
+
+DELETE FROM faculty
+WHERE ID=1002;
+//output
+ID	Name	Salary	
+1001	Sakib	65000.00
+1003	Arnob	50000.00
+
+//show details of maximum gpa details
+SELECT *
+FROM student_details
+WHERE GPA=(SELECT MAX(GPA) FROM student_details);			//*****
+
+ALTER TABLE student_details
+ADD phone int(20);
+
+ALTER TABLE student_details
+DROP phone;
+
+ALTER TABLE student_details
+CHANGE Roll ID int(10);
+
+SELECT City,MAX(GPA)
+FROM student_details
+GROUP BY City
+ORDER BY GPA DESC;
+
+TRUNCATE TABLE student_details; (remove only values from table)
+
+//join 2 table
+SELECT student_details.Roll,reg_number,Name,Subject,Gpa
+FROM student_details,exam 
+WHERE student_details.Roll=exam.Roll;
+
+SELECT student_details.Roll,reg_number,Name,Subject,Gpa
+FROM student_details JOIN exam 
+ON student_details.Roll=exam.Roll;
+
+CREATE VIEW stu_View AS
+SELECT Name,Age,ID,City
+FROM student_details;
+
+SELECT * FROM stu_view;
